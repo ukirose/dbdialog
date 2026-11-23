@@ -1,7 +1,7 @@
 # DBdialog
 
 [![CI](https://github.com/ukirose/dbdialog/actions/workflows/ci.yml/badge.svg)](https://github.com/ukirose/dbdialog/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/dbdialog)](https://www.npmjs.com/package/dbdialog)
+[![npm](https://img.shields.io/npm/v/@ukirose/dbdialog)](https://www.npmjs.com/package/@ukirose/dbdialog)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 Design a MySQL schema in dialogue with your coding agent.
@@ -13,7 +13,7 @@ The SQL file stays the source of truth. Edit it in your editor, or let a coding 
 ![DBdialog showing a marketplace schema with composite foreign keys](docs/screenshot.png)
 
 ```sh
-npx dbdialog schema.sql
+npx @ukirose/dbdialog schema.sql
 ```
 
 ## Status and requirements
@@ -24,11 +24,14 @@ DBdialog 0.1.0 is an early release. What it reads and writes is tested against M
 - MySQL 8.0 DDL; other databases are not supported
 - For `dbdialog snapshot` only: Chrome, Chromium or Microsoft Edge
 
-`npx` runs it without installing. To keep one version for a project (and for the agent working in it), add it to the project:
+`npx @ukirose/dbdialog` runs it without installing. To keep one version for a project (and for the agent working in it), add it to the project; the command it installs is `dbdialog`:
 
 ```sh
-npm install --save-dev dbdialog
+npm install --save-dev @ukirose/dbdialog
+npx dbdialog schema.sql
 ```
+
+The commands below are written for a project that has it installed. Without installing, replace `npx dbdialog` with `npx @ukirose/dbdialog`.
 
 ## Why another ER tool
 
