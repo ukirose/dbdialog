@@ -1,0 +1,78 @@
+{
+  "name": "dbdialog",
+  "version": "0.1.0",
+  "description": "Design a MySQL schema in dialogue with your coding agent: one schema.sql, edited as text by the agent and as a live ER diagram by you. Only what changed is rewritten.",
+  "license": "MIT",
+  "author": "ukirose",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ukirose/dbdialog.git"
+  },
+  "homepage": "https://github.com/ukirose/dbdialog#readme",
+  "bugs": {
+    "url": "https://github.com/ukirose/dbdialog/issues"
+  },
+  "type": "module",
+  "bin": {
+    "dbdialog": "dist/cli.mjs"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "THIRD-PARTY-NOTICES.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "mysql",
+    "schema",
+    "ddl",
+    "er-diagram",
+    "erd",
+    "database",
+    "visualization",
+    "round-trip",
+    "ai-agent",
+    "coding-agent",
+    "claude-code"
+  ],
+  "scripts": {
+    "dev": "tsx src/server/cli.ts --dev",
+    "build": "vite build && tsdown",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "npm run build && playwright test",
+    "verify:mysql": "tsx scripts/verify-mysql.ts",
+    "notices": "tsx scripts/notices.ts",
+    "prepublishOnly": "npm run lint && npm run typecheck && npm test && npm run notices -- --check && npm run build",
+    "lint": "biome check .",
+    "format": "biome format --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.2",
+    "@dagrejs/dagre": "^3.1.2",
+    "@playwright/test": "^1.64.1",
+    "@primer/octicons-react": "^19.42.0",
+    "@primer/primitives": "^11.10.0",
+    "@primer/react": "^38.43.0",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/react-is": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "@xyflow/react": "^12.12.0",
+    "elkjs": "^0.12.0",
+    "lucide-react": "^1.61.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-is": "^19.3.1",
+    "tsdown": "^0.23.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}

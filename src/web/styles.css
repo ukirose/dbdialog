@@ -1,0 +1,1626 @@
+/* DBdialog on Primer, GitHub's design system: every color, size and font below
+   is a Primer design token (@primer/primitives), so light and dark themes come
+   from Primer and match GitHub. Only layout lives here. */
+
+html,
+body,
+#root,
+.base {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bgColor-default);
+  color: var(--fgColor-default);
+  font: var(--text-body-shorthand-medium);
+}
+
+.mono {
+  font-family: var(--fontStack-monospace);
+}
+
+.hint {
+  color: var(--fgColor-muted);
+  font-size: 12px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.splash {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--fgColor-muted);
+}
+
+/* ---------- Top bar ---------- */
+
+.appbar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--base-size-12);
+  height: 48px;
+  padding: 0 var(--base-size-16);
+  background: var(--bgColor-default);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  white-space: nowrap;
+}
+
+.appbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.appbar-file {
+  max-width: 28ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2px 8px;
+  font-family: var(--fontStack-monospace);
+  font-size: 12px;
+  background: var(--bgColor-neutral-muted);
+  border-radius: var(--borderRadius-medium);
+}
+
+.appbar-meta,
+.sync {
+  color: var(--fgColor-muted);
+  font-size: 12px;
+}
+
+.sync {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sync.is-open .sync-dot {
+  color: var(--fgColor-success);
+}
+
+.sync.is-closed .sync-dot {
+  color: var(--fgColor-danger);
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* Primer buttons take their colors from these variables. */
+.appbar .problems.has-warnings {
+  --button-default-fgColor-rest: var(--fgColor-attention);
+  --button-invisible-iconColor-rest: var(--fgColor-attention);
+  --button-invisible-iconColor-hover: var(--fgColor-attention);
+}
+
+.appbar .problems.has-errors {
+  --button-default-fgColor-rest: var(--fgColor-danger);
+  --button-invisible-iconColor-rest: var(--fgColor-danger);
+  --button-invisible-iconColor-hover: var(--fgColor-danger);
+}
+
+/* ---------- Search ---------- */
+
+.search {
+  position: relative;
+  width: min(340px, 28vw);
+  margin-left: var(--base-size-8);
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 100;
+  width: max(100%, 360px);
+  max-height: 60vh;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  list-style: none;
+  background: var(--overlay-bgColor);
+  border: var(--borderWidth-thin) solid var(--overlay-borderColor, var(--borderColor-default));
+  border-radius: var(--borderRadius-large);
+  box-shadow: var(--shadow-floating-small);
+}
+
+.search-hit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: var(--borderRadius-medium);
+  cursor: pointer;
+}
+
+.search-hit svg {
+  flex: none;
+  color: var(--fgColor-muted);
+}
+
+.search-hit.is-active {
+  background: var(--control-transparent-bgColor-hover);
+}
+
+.search-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-table {
+  color: var(--fgColor-muted);
+}
+
+.search-detail {
+  min-width: 0;
+  margin-left: auto;
+  padding-left: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--fgColor-muted);
+  font-size: 12px;
+}
+
+.search-empty {
+  padding: 6px 8px;
+  color: var(--fgColor-muted);
+}
+
+/* ---------- Layout ---------- */
+
+.main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.canvas {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.panel {
+  position: relative;
+  flex: none;
+  max-width: 70vw;
+  overflow: hidden;
+  background: var(--bgColor-default);
+  border-left: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.banner {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------- Canvas (React Flow, in Primer colors) ---------- */
+
+.react-flow {
+  --xy-background-color: var(--bgColor-inset);
+  --xy-background-pattern-dots-color: var(--borderColor-default);
+  --xy-edge-stroke: var(--fgColor-muted);
+  --xy-connectionline-stroke: var(--fgColor-accent);
+  --xy-connectionline-stroke-width: 2;
+  --xy-minimap-background-color: var(--bgColor-default);
+  --xy-minimap-mask-background-color: color-mix(in srgb, var(--bgColor-inset) 75%, transparent);
+  --xy-minimap-node-background-color: var(--bgColor-neutral-muted);
+  --xy-attribution-background-color: transparent;
+}
+
+.react-flow__minimap {
+  overflow: hidden;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  box-shadow: var(--shadow-resting-small);
+}
+
+.react-flow__attribution a {
+  color: var(--fgColor-muted);
+}
+
+.canvas-toolbar {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  white-space: nowrap;
+  background: var(--overlay-bgColor);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-large);
+  box-shadow: var(--shadow-floating-small);
+  transform: translateX(-50%);
+}
+
+.canvas-toolbar-sep {
+  width: 1px;
+  height: 20px;
+  margin: 0 4px;
+  background: var(--borderColor-default);
+}
+
+.canvas-toolbar .zoom-level {
+  min-width: 52px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* A switch of the bar itself (Comments); the notation segments keep Primer's look. */
+.canvas-toolbar > button[aria-pressed="true"] {
+  --button-default-fgColor-rest: var(--fgColor-accent);
+  --button-invisible-iconColor-rest: var(--fgColor-accent);
+  --button-invisible-iconColor-hover: var(--fgColor-accent);
+  background: var(--bgColor-accent-muted);
+}
+
+.canvas-toolbar-label {
+  padding: 0 6px 0 2px;
+  color: var(--fgColor-muted);
+  font-size: 12px;
+}
+
+.empty {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: min(420px, 80%);
+  height: fit-content;
+  margin: auto;
+  padding: 32px;
+  color: var(--fgColor-muted);
+  text-align: center;
+  background: var(--bgColor-default);
+  border: var(--borderWidth-thin) dashed var(--borderColor-default);
+  border-radius: var(--borderRadius-large);
+}
+
+.empty h2 {
+  margin: 0;
+  color: var(--fgColor-default);
+  font: var(--text-title-shorthand-small);
+}
+
+.empty p {
+  margin: 0 0 8px;
+}
+
+/* ---------- Table boxes ---------- */
+
+/* One grid per box: every row shares the column tracks (subgrid), so names,
+   marks, comments and types line up. Rows never wrap; the box grows instead,
+   except the comment column, which a set width squeezes first. */
+/* Square corners: an independent entity. Rounded: a dependent one, the child
+   of an identifying relationship (IDEF1X, and IE as erwin draws it).
+   width: max-content keeps a box as wide as its content whatever the window:
+   a box sits in the canvas absolutely, and would otherwise shrink to fit a
+   narrow one, squeezing its comments, and the layout would be computed for
+   boxes narrower than they are drawn later. A width the user set wins. */
+.tnode {
+  --tnode-radius: 2px;
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    [name] max-content [marks] max-content [comment] minmax(0, auto)
+    [type] max-content [null] max-content [menu] max-content;
+  width: max-content;
+  min-width: 180px;
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+  background: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--tnode-radius);
+  box-shadow: var(--shadow-resting-small);
+  transition: opacity 0.12s;
+}
+
+.tnode.is-dependent {
+  --tnode-radius: 12px;
+}
+
+.tnode.has-width {
+  min-width: min-content;
+}
+
+.tnode.is-selected {
+  border-color: var(--borderColor-accent-emphasis);
+  box-shadow:
+    0 0 0 1px var(--borderColor-accent-emphasis),
+    var(--shadow-resting-medium);
+}
+
+.tnode.has-errors {
+  border-color: var(--borderColor-danger-emphasis);
+}
+
+.tnode.is-dim {
+  opacity: 0.3;
+}
+
+.thead,
+.tadd,
+.tkeys,
+.tnew-actions {
+  grid-column: 1 / -1;
+}
+
+.thead {
+  padding: 6px 6px 6px 10px;
+  background: var(--bgColor-muted);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--tnode-radius) var(--tnode-radius) 0 0;
+}
+
+.thead-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 22px;
+}
+
+.thead-icon {
+  flex: none;
+  color: var(--fgColor-muted);
+}
+
+.thead-name {
+  font-size: 13px;
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.thead-problems {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--fgColor-attention);
+  font-size: 11px;
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.thead-menu {
+  margin-left: auto;
+  visibility: hidden;
+}
+
+.tnode:hover .thead-menu,
+.tnode.is-selected .thead-menu,
+.thead-menu:focus-visible {
+  visibility: visible;
+}
+
+/* width 0 + min-width 100%: as wide as the rows, never what widens the box.
+   It wraps, so a long comment is always there in full. */
+.thead-comment {
+  width: 0;
+  min-width: 100%;
+  padding-right: 4px;
+  color: var(--fgColor-muted);
+  font-size: 11px;
+  line-height: 16px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.thead-comment.is-editing {
+  width: auto;
+  margin-top: 2px;
+}
+
+.trow {
+  position: relative;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  align-items: center;
+  height: 26px;
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.thead + .trow {
+  border-top: 0;
+}
+
+/* The line under the primary key: IE and IDEF1X draw the key above it. */
+.trow.is-after-key,
+.trow-spacer.is-after-key {
+  border-top: var(--borderWidth-thin) solid var(--borderColor-emphasis);
+}
+
+/* Every column is in the primary key: an empty part under the line. */
+.trow-spacer {
+  grid-column: 1 / -1;
+  height: 8px;
+}
+
+.cell-nokey {
+  grid-column: 1 / -1;
+  color: var(--fgColor-muted);
+  font-size: 11px;
+}
+
+.trow.is-chosen {
+  background: var(--bgColor-accent-muted);
+  box-shadow: inset 2px 0 0 var(--borderColor-accent-emphasis);
+}
+
+.trow.is-draft {
+  height: 30px;
+  background: var(--bgColor-muted);
+}
+
+.trow.is-picking {
+  cursor: pointer;
+}
+
+.trow.is-picking:hover {
+  background: var(--bgColor-neutral-muted);
+}
+
+.trow.is-picked {
+  background: var(--bgColor-accent-muted);
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  height: 100%;
+  padding-left: 8px;
+}
+
+.cell:empty {
+  padding-left: 0;
+}
+
+.cell-name {
+  padding-left: 10px;
+}
+
+.cell-name.is-pk {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+/* Ellipsis needs a block box; pointing at a cut comment shows all of it. */
+.cell-comment {
+  display: block;
+  max-width: 22em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--fgColor-muted);
+  font-size: 11px;
+  line-height: 26px;
+}
+
+.tnode.has-width .cell-comment {
+  max-width: none;
+}
+
+.cell-comment:has(.cell-input) {
+  max-width: none;
+  overflow: visible;
+}
+
+.cell-type {
+  padding-left: 12px;
+  color: var(--fgColor-muted);
+  font-family: var(--fontStack-monospace);
+  font-size: 11px;
+}
+
+.cell-null {
+  padding-left: 6px;
+}
+
+.cell-menu {
+  padding: 0 4px 0 4px;
+}
+
+.row-menu {
+  visibility: hidden;
+}
+
+.trow:hover .row-menu,
+.row-menu:focus-visible {
+  visibility: visible;
+}
+
+.cell-input {
+  height: 22px;
+  min-width: 6ch;
+  max-width: 40ch;
+  padding: 0 5px;
+  color: var(--fgColor-default);
+  font: inherit;
+  font-size: 12px;
+  font-weight: normal;
+  background: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-accent-emphasis);
+  border-radius: var(--borderRadius-small);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bgColor-accent-muted);
+}
+
+.cell-input.is-mono {
+  font-family: var(--fontStack-monospace);
+  font-size: 11px;
+}
+
+.cell-input::placeholder {
+  color: var(--fgColor-muted);
+}
+
+.pick-no {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  color: var(--fgColor-onEmphasis);
+  font-size: 10px;
+  font-weight: var(--base-text-weight-semibold);
+  background: var(--bgColor-accent-emphasis);
+  border-radius: 50%;
+}
+
+.tadd {
+  display: flex;
+  padding: 2px 6px;
+  border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.tkeys {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 4px 6px 5px 10px;
+  background: var(--bgColor-muted);
+  border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: 0 0 var(--tnode-radius) var(--tnode-radius);
+}
+
+.tkey {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 22px;
+}
+
+.tkey-cols {
+  font-family: var(--fontStack-monospace);
+  font-size: 11px;
+}
+
+.tkey-name {
+  color: var(--fgColor-muted);
+  font-size: 11px;
+}
+
+.tkey-delete {
+  margin-left: auto;
+  visibility: hidden;
+}
+
+.tkey:hover .tkey-delete {
+  visibility: visible;
+}
+
+.tkey.is-picking .tkey-cols {
+  color: var(--fgColor-muted);
+}
+
+.tkey.is-picking .text-button:first-of-type {
+  margin-left: auto;
+}
+
+.tkey-add {
+  display: flex;
+  gap: 4px;
+}
+
+.tnew-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 6px;
+  border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.tnew-actions .hint {
+  margin-right: auto;
+  padding-left: 4px;
+}
+
+.tnode.is-new {
+  border-style: dashed;
+}
+
+.text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 6px;
+  color: var(--fgColor-accent);
+  font: inherit;
+  font-size: 12px;
+  background: none;
+  border: 0;
+  border-radius: var(--borderRadius-small);
+  cursor: pointer;
+}
+
+.text-button:hover {
+  background: var(--control-transparent-bgColor-hover);
+}
+
+.text-button.is-primary {
+  padding: 0 10px;
+  color: var(--fgColor-onEmphasis);
+  background: var(--bgColor-accent-emphasis);
+}
+
+.text-button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  color: var(--fgColor-muted);
+  background: none;
+  border: 0;
+  border-radius: var(--borderRadius-small);
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  color: var(--fgColor-default);
+  background: var(--control-transparent-bgColor-hover);
+}
+
+/* The width grip: the bottom-right corner, clear of the rows' connection dots. */
+.tresize {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  z-index: 3;
+  width: 14px;
+  height: 14px;
+  cursor: ew-resize;
+}
+
+.tnode:hover .tresize::after,
+.tnode.is-selected .tresize::after {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid var(--fgColor-muted);
+  border-bottom: 2px solid var(--fgColor-muted);
+  content: "";
+}
+
+.thandle.react-flow__handle {
+  width: 9px;
+  height: 9px;
+  min-width: 0;
+  min-height: 0;
+  background: var(--bgColor-default);
+  border: 1.5px solid var(--fgColor-accent);
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.tnode:hover .thandle,
+.canvas.is-connecting .thandle,
+.react-flow__handle.connectingfrom,
+.react-flow__handle.connectingto {
+  opacity: 1;
+}
+
+/* While a line is being drawn, a whole row takes it, not only its dot. */
+.react-flow .trow-drop.react-flow__handle {
+  inset: 0;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  transform: none;
+  pointer-events: none;
+}
+
+.canvas.is-connecting .react-flow .trow-drop.react-flow__handle {
+  pointer-events: all;
+}
+
+.canvas.is-connecting .trow:hover {
+  background: var(--bgColor-accent-muted);
+}
+
+/* ---------- Marks: icon and text ---------- */
+
+.marks {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 2px;
+  height: 16px;
+  padding: 0 5px 0 4px;
+  font-size: 10px;
+  font-weight: var(--base-text-weight-semibold);
+  line-height: 1;
+  border: var(--borderWidth-thin) solid transparent;
+  border-radius: 999px;
+}
+
+.mark svg {
+  flex: none;
+}
+
+.mark-pk {
+  color: var(--fgColor-attention);
+  background: var(--bgColor-attention-muted);
+  border-color: var(--borderColor-attention-muted);
+}
+
+.mark-fk {
+  color: var(--fgColor-accent);
+  background: var(--bgColor-accent-muted);
+  border-color: var(--borderColor-accent-muted);
+}
+
+.mark-uq {
+  color: var(--fgColor-done);
+  background: var(--bgColor-done-muted);
+  border-color: var(--borderColor-done-muted);
+}
+
+.mark-gen {
+  color: var(--fgColor-default);
+  background: var(--bgColor-neutral-muted);
+  border-color: var(--borderColor-muted);
+}
+
+/* Dashed outline: the value may be missing. */
+.mark-null {
+  color: var(--fgColor-muted);
+  border-color: var(--borderColor-default);
+  border-style: dashed;
+}
+
+.mark-idx {
+  color: var(--fgColor-default);
+  background: var(--bgColor-neutral-muted);
+  border-color: var(--borderColor-muted);
+}
+
+.mark-check {
+  color: var(--fgColor-success);
+  background: var(--bgColor-success-muted);
+  border-color: var(--borderColor-success-muted);
+}
+
+/* A mark that is also a switch (new rows): dashed when off. */
+.mark-toggle {
+  color: var(--fgColor-muted);
+  font-family: inherit;
+  background: transparent;
+  border-color: var(--borderColor-default);
+  border-style: dashed;
+  cursor: pointer;
+}
+
+.mark-toggle.is-on {
+  color: var(--fgColor-default);
+  border-style: solid;
+}
+
+.mark-toggle.mark-pk.is-on {
+  color: var(--fgColor-attention);
+  background: var(--bgColor-attention-muted);
+  border-color: var(--borderColor-attention-muted);
+}
+
+.mark-dot {
+  width: 7px;
+  height: 7px;
+  margin-left: 1px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--bgColor-default);
+}
+
+/* IDEF1X notes after a column: (FK), (AK1), (O). Plain text, as the standard
+   writes them; not monospace, where the letter O of "(O)" reads as a zero. */
+.note {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 2px;
+  color: var(--fgColor-muted);
+  font-size: 11px;
+}
+
+.note-fk {
+  color: var(--fgColor-accent);
+}
+
+.note-ak {
+  color: var(--fgColor-done);
+}
+
+/* ---------- Foreign key lines ---------- */
+
+.fk-edge .react-flow__edge-path {
+  stroke-width: 1.5;
+}
+
+.fk-edge.is-near .react-flow__edge-path {
+  stroke-width: 2;
+}
+
+.fk-edge.is-active .react-flow__edge-path {
+  stroke-width: 3;
+}
+
+.fk-edge {
+  transition: opacity 0.12s;
+}
+
+.fk-edge.is-dim {
+  opacity: 0.12;
+}
+
+/* The lines carrying the chosen column's values, through every table. */
+.fk-edge.is-flow .react-flow__edge-path {
+  stroke-width: 3;
+}
+
+.fk-dir {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fk-edge.is-active .fk-dir {
+  stroke-width: 2.25;
+}
+
+/* IDEF1X cardinality beside the dot at the child end ("Z": zero or one). */
+.fk-card {
+  font-family: var(--fontStack-monospace);
+  font-size: 11px;
+  font-weight: var(--base-text-weight-semibold);
+}
+
+/* Labels above every box (a selected box is lifted to 1000), so a box never hides one. */
+.react-flow__edgelabel-renderer {
+  z-index: 1001;
+}
+
+.fk-label {
+  position: absolute;
+  padding: 2px 6px;
+  color: var(--fgColor-default);
+  font-family: var(--fontStack-monospace);
+  font-size: 11px;
+  white-space: nowrap;
+  background: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid;
+  border-radius: var(--borderRadius-medium);
+  box-shadow: var(--shadow-resting-small);
+  pointer-events: none;
+}
+
+/* ---------- Side panel ---------- */
+
+.panel-inner {
+  padding: 0 16px 32px;
+}
+
+.panel-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  margin: 0 -16px;
+  padding: 0 8px 0 16px;
+  background: var(--bgColor-default);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.panel-header-icon {
+  display: inline-flex;
+  color: var(--fgColor-muted);
+}
+
+.panel-title {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: var(--text-title-shorthand-small);
+}
+
+.panel-meta {
+  margin-right: auto;
+  color: var(--fgColor-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.panel-header > :last-child:not(.panel-meta):not(.panel-title) {
+  margin-left: auto;
+}
+
+.section {
+  padding: 16px 0;
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+}
+
+.section:last-child {
+  border-bottom: 0;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  color: var(--fgColor-muted);
+  font-size: 12px;
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.counter {
+  min-width: 20px;
+  padding: 0 6px;
+  color: var(--fgColor-default);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+  background: var(--bgColor-neutral-muted);
+  border-radius: 999px;
+}
+
+.section.draft {
+  margin: 12px -16px 0;
+  padding: 12px 16px;
+  background: var(--bgColor-accent-muted);
+  border-top: var(--borderWidth-thin) solid var(--borderColor-accent-muted);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-accent-muted);
+}
+
+.section.draft .hint {
+  margin: -4px 0 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.field-label {
+  font-size: 12px;
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.panel .add-link {
+  --button-default-fgColor-rest: var(--fgColor-accent);
+  --button-invisible-iconColor-rest: var(--fgColor-accent);
+  --button-invisible-iconColor-hover: var(--fgColor-accent);
+}
+
+.gen {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.gen > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.detail-list,
+.uses {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.detail-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 6px;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: var(--borderRadius-small);
+  cursor: pointer;
+}
+
+.detail-row:hover {
+  background: var(--control-transparent-bgColor-hover);
+}
+
+.detail-row.is-chosen {
+  background: var(--bgColor-accent-muted);
+}
+
+.detail-name {
+  flex: none;
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.detail-chips {
+  min-width: 0;
+  color: var(--fgColor-muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.flow-path {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.uses li {
+  padding: 2px 0;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.section.is-focused {
+  margin: 0 -16px;
+  padding: 12px 16px;
+  background: var(--bgColor-accent-muted);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-accent-muted);
+}
+
+.section.is-focused .hint {
+  margin-bottom: 8px;
+}
+
+.section-title .spacer {
+  flex: 1;
+}
+
+.item {
+  margin-bottom: 8px;
+  padding: 8px;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.item.is-new {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-style: dashed;
+}
+
+.item.is-focused {
+  border-color: var(--borderColor-accent-emphasis);
+  box-shadow: 0 0 0 1px var(--borderColor-accent-emphasis);
+}
+
+.item-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.item-head > :nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.item-summary-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.swatch {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-top: 4px;
+  border-radius: 50%;
+}
+
+.fk-editor {
+  margin-top: 10px;
+}
+
+.fk-pair {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.fk-pair > :not(svg):not(button) {
+  flex: 1;
+  min-width: 0;
+}
+
+.fk-arrow {
+  flex: none;
+  color: var(--fgColor-muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.panel .note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.panel .note svg {
+  flex: none;
+  margin: 2px 0 0;
+}
+
+.panel .note p {
+  margin: 0 0 8px;
+}
+
+.note-link {
+  padding: 0;
+  color: var(--fgColor-accent);
+  font: inherit;
+  font-weight: var(--base-text-weight-semibold);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.note-link:hover {
+  text-decoration: underline;
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.legend dt {
+  display: flex;
+}
+
+.legend dd {
+  margin: 0;
+}
+
+.legend-line {
+  display: block;
+}
+
+.legend-note {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+.help {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--fgColor-muted);
+  font-size: 13px;
+}
+
+.help li + li {
+  margin-top: 4px;
+}
+
+.sql {
+  margin: 0 0 12px;
+  padding: 12px;
+  overflow-x: auto;
+  font-family: var(--fontStack-monospace);
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre;
+  background: var(--bgColor-muted);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.sql-wrap {
+  position: relative;
+}
+
+.sql-wrap .sql-copy {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+.tok-keyword {
+  color: var(--codeMirror-syntax-fgColor-keyword);
+}
+
+.tok-type,
+.tok-number {
+  color: var(--codeMirror-syntax-fgColor-constant);
+}
+
+.tok-string {
+  color: var(--codeMirror-syntax-fgColor-string);
+}
+
+.tok-comment {
+  color: var(--codeMirror-syntax-fgColor-comment);
+}
+
+.help-body {
+  max-height: 72vh;
+  padding: 12px 16px 16px;
+  overflow: auto;
+}
+
+.help-body .section-title:not(:first-child) {
+  margin-top: 16px;
+}
+
+/* The left edge of the sidebar: drag to resize. The panel stays put and its
+   inside scrolls, so the edge does not scroll away. */
+.panel-resizer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  width: 5px;
+  cursor: ew-resize;
+}
+
+.panel-resizer:hover {
+  background: var(--borderColor-accent-emphasis);
+}
+
+.panel-scroll {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.tip {
+  position: fixed;
+  z-index: 2000;
+  max-width: 420px;
+  padding: 6px 8px;
+  color: var(--fgColor-onEmphasis);
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  background: var(--bgColor-emphasis);
+  border-radius: var(--borderRadius-medium);
+  box-shadow: var(--shadow-floating-small);
+  pointer-events: none;
+}
+
+.is-mono textarea {
+  font-family: var(--fontStack-monospace);
+}
+
+/* ---------- Toast ---------- */
+
+.toast {
+  position: fixed;
+  bottom: 72px;
+  left: 50%;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: min(640px, 90vw);
+  padding: 8px 6px 8px 14px;
+  color: var(--fgColor-onEmphasis);
+  background: var(--bgColor-emphasis);
+  border-radius: var(--borderRadius-large);
+  box-shadow: var(--shadow-floating-large);
+  transform: translateX(-50%);
+}
+
+.toast .toast-action {
+  flex: none;
+  margin-top: 2px;
+}
+
+.toast .toast-icon {
+  flex: none;
+  margin-top: 6px;
+}
+
+.toast.is-info .toast-icon {
+  color: var(--fgColor-success);
+}
+
+.toast-text {
+  flex: 1;
+  padding-top: 4px;
+  white-space: pre-wrap;
+}
+
+.toast .toast-close {
+  --button-default-fgColor-rest: var(--fgColor-onEmphasis);
+  --button-invisible-iconColor-rest: var(--fgColor-onEmphasis);
+  --button-invisible-iconColor-hover: var(--fgColor-onEmphasis);
+  --button-invisible-bgColor-hover: color-mix(in srgb, var(--fgColor-onEmphasis) 15%, transparent);
+}
+
+/* ---------- The agent view (/?view=agent) ----------
+   For coding agents taking a picture: the graph of the tables only (the SQL
+   tells the rest), drawn large, with nothing on top of anything. */
+
+.agent-view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  color: var(--fgColor-default);
+  background: var(--bgColor-default);
+}
+
+.agent-header {
+  flex: none;
+  padding: 6px 14px;
+  font-size: 14px;
+  line-height: 22px;
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.agent-line {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.agent-line > span {
+  display: inline-flex;
+  gap: 14px;
+}
+
+.agent-legend {
+  color: var(--fgColor-muted);
+}
+
+.agent-file {
+  font-family: var(--fontStack-monospace);
+}
+
+.agent-warn {
+  color: var(--fgColor-danger);
+}
+
+.agent-canvas {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  padding: 8px;
+  overflow: auto;
+}
+
+.agent-scene {
+  position: relative;
+}
+
+.agent-scene-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.agent-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+}
+
+.agent-lines polyline {
+  stroke-width: 2;
+}
+
+.agent-lines .is-flagged polyline {
+  stroke-width: 3;
+}
+
+.agent-place {
+  position: absolute;
+  display: flex;
+}
+
+/* Boxes are measured here, unseen, before the layout places them. */
+.agent-measure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.agent-measure > div {
+  width: max-content;
+}
+
+.abox {
+  box-sizing: border-box;
+  flex: 1;
+  padding: 6px 12px;
+  background: var(--bgColor-default);
+  border: 1.5px solid var(--borderColor-emphasis);
+  border-radius: 2px;
+}
+
+.abox-name {
+  font-size: 15px;
+  font-weight: var(--base-text-weight-semibold);
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.abox-pk {
+  font-family: var(--fontStack-monospace);
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+/* A column named like a reference with no foreign key: its line runs to "?". */
+.astub {
+  position: absolute;
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--fgColor-muted);
+  white-space: nowrap;
+  background: var(--bgColor-default);
+  border: 1.5px dashed var(--fgColor-muted);
+  border-radius: 4px;
+}
+
+/* Why a line needs a look, on the line, where the layout made room for it. */
+.alabel {
+  position: absolute;
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 1px 6px;
+  font-size: 12px;
+  font-weight: var(--base-text-weight-semibold);
+  line-height: 16px;
+  color: var(--fgColor-danger);
+  white-space: nowrap;
+  background: var(--bgColor-default);
+  border: 1.5px solid var(--fgColor-danger);
+  border-radius: 4px;
+}
+
+.agent-measure > .astub,
+.agent-measure > .alabel {
+  position: static;
+}
+
+.abox-counts {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--fgColor-muted);
+  white-space: nowrap;
+}
+
+/* The same as text: read by agents and by `dbdialog snapshot`, not drawn. */
+.agent-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  white-space: pre;
+  clip-path: inset(50%);
+}

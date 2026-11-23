@@ -1,0 +1,13 @@
+# MySQL 8.0 for scripts/verify-mysql.ts only (no port is published; the
+# script talks to it with `docker compose exec`).
+name: dbdialog
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      interval: 2s
+      timeout: 3s
+      retries: 90
